@@ -11,7 +11,7 @@ install:
   set:
     replicaCount: 1
     image:
-      tag: $(tag)
+      tag: $(tag), Docker, Test
       pullPolicy: Never
     ingress:
       hosts:
