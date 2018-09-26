@@ -5,14 +5,14 @@ EXPOSE 44326
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["Docker-TestApp/Docker-TestApp.csproj", "Docker-TestApp/"]
-RUN dotnet restore "Docker-TestApp/Docker-TestApp.csproj"
+COPY Docker-TestApp/Docker-TestApp.csproj Docker-TestApp/
+RUN dotnet restore Docker-TestApp/Docker-TestApp.csproj
 COPY . .
-WORKDIR "/src/Docker-TestApp"
-RUN dotnet build "Docker-TestApp.csproj" -c Release -o /app
+WORKDIR /src/Docker-TestApp
+RUN dotnet build Docker-TestApp.csproj -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "Docker-TestApp.csproj" -c Release -o /app
+RUN dotnet publish Docker-TestApp.csproj -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
